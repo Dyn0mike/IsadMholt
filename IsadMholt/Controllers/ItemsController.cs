@@ -24,6 +24,11 @@ namespace IsadMholt.Controllers
             return View(await _context.Items.ToListAsync());
         }
 
+        public async Task<IActionResult> Menu()
+        {
+            return View(await _context.Items.ToListAsync());
+        }
+
         // GET: Items/Details/5
         public async Task<IActionResult> Details(int? id)
         {
