@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using Microsoft.AspNetCore.Http;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
@@ -12,6 +13,9 @@ namespace IsadMholt.Controllers
     public class ItemsController : Controller
     {
         private readonly ISAD251_MHoltContext _context;
+
+
+
 
         public ItemsController(ISAD251_MHoltContext context)
         {
@@ -28,6 +32,19 @@ namespace IsadMholt.Controllers
         {
             return View(await _context.Items.ToListAsync());
         }
+
+        // GET: Items/Details/5
+        public void addBasket(int? id)
+        {
+
+            Response.Cookies.Append("Table", "value");
+
+            return;
+        }
+
+
+
+
 
         // GET: Items/Details/5
         public async Task<IActionResult> Details(int? id)
@@ -84,6 +101,7 @@ namespace IsadMholt.Controllers
             }
             return View(items);
         }
+
 
         // POST: Items/Edit/5
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 

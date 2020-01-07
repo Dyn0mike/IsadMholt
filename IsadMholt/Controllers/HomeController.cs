@@ -36,6 +36,7 @@ namespace IsadMholt.Controllers
 
         public IActionResult Admin()
         {
+            Response.Cookies.Append("user", "Admin");
             return View();
         }
 
@@ -43,6 +44,23 @@ namespace IsadMholt.Controllers
         public IActionResult Error()
         {
             return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
+        }
+
+        public IActionResult Login()
+        {
+            return View();
+        }
+
+        public IActionResult SetAdminCookie()
+        {
+            Response.Cookies.Append("user", "Admin");
+            return View("Index");
+        }
+
+        public IActionResult SetuserCookie(String uID)
+        {
+            Response.Cookies.Append("user", uID);
+            return View("Index");
         }
     }
 }

@@ -42,7 +42,8 @@
                 @Html.DisplayFor(modelItem => item.Price)
             </td>
             <td>
-                <a asp-action="Edit" asp-route-id="@item.IdItem">Add to basket.</a>
+                <a asp-action="addBasket" asp-route-id="@item.IdItem">Add to basket.</a>
+                <a asp-area="" asp-controller="Items" asp-action="addBasket">Our Menu</a>
             </td>
         </tr>
 }
