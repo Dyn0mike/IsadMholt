@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace IsadMholt
+namespace IsadMholt.Models
 {
     public partial class Items
     {
@@ -9,6 +9,6 @@ namespace IsadMholt
         public string Catagory { get; set; }
         public string Name { get; set; }
         public string Url { get; set; }
-        public string Price { get; set; }
+        public decimal? Price { get; set; }
     }
 }

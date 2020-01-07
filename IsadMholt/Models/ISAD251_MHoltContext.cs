@@ -2,7 +2,7 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata;
 
-namespace IsadMholt
+namespace IsadMholt.Models
 {
     public partial class ISAD251_MHoltContext : DbContext
     {
@@ -56,11 +56,9 @@ namespace IsadMholt
 
                 entity.Property(e => e.Name).HasMaxLength(10);
 
-                entity.Property(e => e.Price).HasMaxLength(10);
-
                 entity.Property(e => e.Url)
                     .HasColumnName("URL")
-                    .HasMaxLength(10);
+                    .HasMaxLength(2083);
             });
 
             modelBuilder.Entity<ItemsOrdered>(entity =>

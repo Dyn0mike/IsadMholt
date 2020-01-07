@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace IsadMholt
+namespace IsadMholt.Models
 {
     public partial class Orders
     {
