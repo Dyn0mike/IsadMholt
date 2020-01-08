@@ -34,7 +34,7 @@ namespace IsadMholt.Controllers
         }
 
         // GET: Items/Details/5
-        public void addBasket(int? id)
+        public async Task<IActionResult> addBasket(int? id)
         {
 
             string cookieValue = Request.Cookies[id.ToString()];
@@ -50,8 +50,8 @@ namespace IsadMholt.Controllers
                 cookieValue = "1";
             }
             Response.Cookies.Append(id.ToString(), cookieValue);
-
-            return;
+            ViewBag.itemID = id;
+            return View(await _context.Items.ToListAsync());
         }
 
 
