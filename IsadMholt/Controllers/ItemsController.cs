@@ -51,6 +51,10 @@ namespace IsadMholt.Controllers
             }
             Response.Cookies.Append(id.ToString(), cookieValue);
             ViewBag.itemID = id;
+            if (Request.Cookies["user"] == null)
+            {
+                return RedirectToAction("Login","Home");
+            }
             return View(await _context.Items.ToListAsync());
         }
 

@@ -28,22 +28,22 @@
     </thead>
     <tbody>
 @foreach (var item in Model) {
+    string picURL = item.Url;
         <tr>
             <td>
-                @Html.DisplayFor(modelItem => item.Catagory)
+                <img src="~/Images/@Html.DisplayFor(model =>picURL)" style="height:106px;width:160px;" />
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.Name)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.Url)
+                @Html.DisplayFor(modelItem => item.Catagory)
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.Price)
             </td>
             <td>
                 <a asp-action="addBasket" asp-route-id="@item.IdItem">Add to basket.</a>
-                <a asp-area="" asp-controller="Items" asp-action="addBasket">Our Menu</a>
             </td>
         </tr>
 }
