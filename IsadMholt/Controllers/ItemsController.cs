@@ -54,6 +54,14 @@ namespace IsadMholt.Controllers
             return View(await _context.Items.ToListAsync());
         }
 
+        // GET: Items/Remove/5
+        public IActionResult RemoveItem(int? id)
+        {
+            Response.Cookies.Delete(id.ToString());
+
+            return RedirectToAction("addBasket");
+        }
+
 
 
 
