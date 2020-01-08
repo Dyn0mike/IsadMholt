@@ -54,6 +54,7 @@ namespace IsadMholt.Controllers
         public IActionResult Logout()
         {
             Response.Cookies.Delete("user");
+            Response.Cookies.Delete("uniqueID");
             ViewBag.LoggingOut = true;
             return View("Login");
         }
@@ -61,12 +62,15 @@ namespace IsadMholt.Controllers
         public IActionResult SetAdminCookie()
         {
             Response.Cookies.Append("user", "Admin");
+            Response.Cookies.Append("uniqueID", Guid.NewGuid().ToString());
             return View("Index");
         }
+
 
         public IActionResult SetuserCookie(String uID)
         {
             Response.Cookies.Append("user", uID);
+            Response.Cookies.Append("uniqueID", Guid.NewGuid().ToString());
             return View("Index");
         }
     }

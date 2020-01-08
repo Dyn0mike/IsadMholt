@@ -3,7 +3,7 @@
 @{
     ViewData["Title"] = "addBasket";
     Layout = "~/Views/Shared/_Layout.cshtml";
-    
+    List<string> productsInBasket = new List<string>();
 }
 
 <h2>Basket</h2>
@@ -27,27 +27,31 @@
         </tr>
     </thead>
     <tbody>
-@foreach (var item in Model) {
 
-    string cookieValue = Context.Request.Cookies[item.IdItem.ToString()];
-    if (cookieValue != null || ViewBag.itemID == item.IdItem)
-    {
+        @foreach (var item in Model)
+        {
 
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.Catagory)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Name)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Price)
-            </td>
-            <td>
-                <a asp-action="RemoveItem" asp-route-id="@item.IdItem">Remove</a>
-            </td>
-        </tr>
-    }
-}
+            productsInBasket.Add(item.IdItem.ToString());
+
+            string cookieValue = Context.Request.Cookies[item.IdItem.ToString()];
+            if (cookieValue != null || ViewBag.itemID == item.IdItem)
+            {
+
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Catagory)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Name)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Price)
+                    </td>
+                    <td>
+                        <a asp-action="RemoveItem" asp-route-id="@item.IdItem">Remove</a>
+                    </td>
+                </tr>
+            }
+        }
     </tbody>
 </table>
