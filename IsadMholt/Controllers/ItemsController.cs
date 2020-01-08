@@ -37,7 +37,19 @@ namespace IsadMholt.Controllers
         public void addBasket(int? id)
         {
 
-            Response.Cookies.Append("Table", "value");
+            string cookieValue = Request.Cookies[id.ToString()];
+            
+            if (cookieValue != null)
+            {
+                int value = Convert.ToInt32(cookieValue);
+                value += 1;
+                cookieValue = value.ToString();
+            }
+            else
+            {
+                cookieValue = "1";
+            }
+            Response.Cookies.Append(id.ToString(), cookieValue);
 
             return;
         }
