@@ -51,6 +51,13 @@ namespace IsadMholt.Controllers
             return View();
         }
 
+        public IActionResult Logout()
+        {
+            Response.Cookies.Delete("user");
+            ViewBag.LoggingOut = true;
+            return View("Login");
+        }
+
         public IActionResult SetAdminCookie()
         {
             Response.Cookies.Append("user", "Admin");
