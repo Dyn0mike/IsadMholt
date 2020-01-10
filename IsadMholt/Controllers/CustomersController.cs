@@ -95,16 +95,25 @@ namespace IsadMholt.Controllers
                 _context.Add(customer);
                 await _context.SaveChangesAsync();
                 return View("../Home/Index");
-                //return RedirectToAction(nameof(Index));
             }
             return View("../Home/Index");
         }
-
+        //Opens an order that custmers can add to.
         private void OpenOrder(int idCustomer)
         {
             Orders NewOrder = new Orders();
             List<Orders> ListOfOrders = GetOrders();
             NewOrder.IdCustomer = idCustomer;
+            NewOrder.IdOrder = ListOfOrders.Count() + 1;
+            NewOrder.Price = "0";
+            Response.Cookies.Append("IdOrder", NewOrder.IdOrder.ToString());
+            NewOrder.Time = DateTime.Now.ToString("HH:mm");
+            NewOrder.Date = DateTime.Now.ToString("MM/dd/yyyy");
+            if (ModelState.IsValid)
+            {
+                _context.Add(NewOrder);
+                _context.SaveChanges();              
+            }
         }
 
         //Poll DB for users to do auto incrments.
