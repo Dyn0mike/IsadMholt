@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using Microsoft.AspNetCore.Http;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
@@ -10,67 +9,22 @@ using IsadMholt.Models;
 
 namespace IsadMholt.Controllers
 {
-    public class ItemsController : Controller
+    public class OrdersController : Controller
     {
         private readonly ISAD251_MHoltContext _context;
 
-
-
-
-        public ItemsController(ISAD251_MHoltContext context)
+        public OrdersController(ISAD251_MHoltContext context)
         {
             _context = context;
         }
 
-        // GET: Items
+        // GET: Orders
         public async Task<IActionResult> Index()
         {
-            return View(await _context.Items.ToListAsync());
+            return View(await _context.Orders.ToListAsync());
         }
 
-        public async Task<IActionResult> Menu()
-        {
-            return View(await _context.Items.ToListAsync());
-        }
-
-        // GET: Items/Details/5
-        public async Task<IActionResult> addBasket(int? id)
-        {
-
-            string cookieValue = Request.Cookies["O"];
-            
-            if (cookieValue != null)
-            {
-                int value = Convert.ToInt32(cookieValue);
-                value += 1;
-                cookieValue = value.ToString();
-            }
-            else
-            {
-                cookieValue = "1";
-            }
-            Response.Cookies.Append(id.ToString(), cookieValue);
-            ViewBag.itemID = id;
-            if (Request.Cookies["uniqueID"] == null)
-            {
-                return RedirectToAction("Login","Home");
-            }
-            return View(await _context.Items.ToListAsync());
-        }
-
-        // GET: Items/Remove/5
-        public IActionResult RemoveItem(int? id)
-        {
-            Response.Cookies.Delete(id.ToString());
-
-            return RedirectToAction("addBasket");
-        }
-
-
-
-
-
-        // GET: Items/Details/5
+        // GET: Orders/Details/5
         public async Task<IActionResult> Details(int? id)
         {
             if (id == null)
@@ -78,39 +32,39 @@ namespace IsadMholt.Controllers
                 return NotFound();
             }
 
-            var items = await _context.Items
-                .FirstOrDefaultAsync(m => m.IdItem == id);
-            if (items == null)
+            var orders = await _context.Orders
+                .FirstOrDefaultAsync(m => m.IdOrder == id);
+            if (orders == null)
             {
                 return NotFound();
             }
 
-            return View(items);
+            return View(orders);
         }
 
-        // GET: Items/Create
+        // GET: Orders/Create
         public IActionResult Create()
         {
             return View();
         }
 
-        // POST: Items/Create
+        // POST: Orders/Create
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("IdItem,Catagory,Name,Url,Price")] Items items)
+        public async Task<IActionResult> Create([Bind("IdOrder,IdCustomer,Date,Time,Price")] Orders orders)
         {
             if (ModelState.IsValid)
             {
-                _context.Add(items);
+                _context.Add(orders);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            return View(items);
+            return View(orders);
         }
 
-        // GET: Items/Edit/5
+        // GET: Orders/Edit/5
         public async Task<IActionResult> Edit(int? id)
         {
             if (id == null)
@@ -118,23 +72,22 @@ namespace IsadMholt.Controllers
                 return NotFound();
             }
 
-            var items = await _context.Items.FindAsync(id);
-            if (items == null)
+            var orders = await _context.Orders.FindAsync(id);
+            if (orders == null)
             {
                 return NotFound();
             }
-            return View(items);
+            return View(orders);
         }
 
-
-        // POST: Items/Edit/5
+        // POST: Orders/Edit/5
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("IdItem,Catagory,Name,Url,Price")] Items items)
+        public async Task<IActionResult> Edit(int id, [Bind("IdOrder,IdCustomer,Date,Time,Price")] Orders orders)
         {
-            if (id != items.IdItem)
+            if (id != orders.IdOrder)
             {
                 return NotFound();
             }
@@ -143,12 +96,12 @@ namespace IsadMholt.Controllers
             {
                 try
                 {
-                    _context.Update(items);
+                    _context.Update(orders);
                     await _context.SaveChangesAsync();
                 }
                 catch (DbUpdateConcurrencyException)
                 {
-                    if (!ItemsExists(items.IdItem))
+                    if (!OrdersExists(orders.IdOrder))
                     {
                         return NotFound();
                     }
@@ -159,10 +112,10 @@ namespace IsadMholt.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
-            return View(items);
+            return View(orders);
         }
 
-        // GET: Items/Delete/5
+        // GET: Orders/Delete/5
         public async Task<IActionResult> Delete(int? id)
         {
             if (id == null)
@@ -170,31 +123,30 @@ namespace IsadMholt.Controllers
                 return NotFound();
             }
 
-            var items = await _context.Items
-                .FirstOrDefaultAsync(m => m.IdItem == id);
-            if (items == null)
+            var orders = await _context.Orders
+                .FirstOrDefaultAsync(m => m.IdOrder == id);
+            if (orders == null)
             {
                 return NotFound();
             }
 
-            return View(items);
+            return View(orders);
         }
 
-        // POST: Items/Delete/5
+        // POST: Orders/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            var items = await _context.Items.FindAsync(id);
-            _context.Items.Remove(items);
+            var orders = await _context.Orders.FindAsync(id);
+            _context.Orders.Remove(orders);
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
 
-        private bool ItemsExists(int id)
+        private bool OrdersExists(int id)
         {
-            return _context.Items.Any(e => e.IdItem == id);
+            return _context.Orders.Any(e => e.IdOrder == id);
         }
-
     }
 }

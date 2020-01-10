@@ -37,13 +37,9 @@ namespace IsadMholt.Models
 
                 entity.Property(e => e.IdCustomer).ValueGeneratedNever();
 
-                entity.Property(e => e.CookieId)
+                entity.Property(e => e.CookieID)
                     .HasColumnName("CookieID")
                     .HasMaxLength(10);
-
-                entity.Property(e => e.Expires).HasMaxLength(10);
-
-                entity.Property(e => e.Name).HasMaxLength(10);
             });
 
             modelBuilder.Entity<Items>(entity =>

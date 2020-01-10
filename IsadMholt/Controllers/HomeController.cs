@@ -59,19 +59,7 @@ namespace IsadMholt.Controllers
             return View("Login");
         }
 
-        public IActionResult SetAdminCookie()
-        {
-            Response.Cookies.Append("user", "Admin");
-            Response.Cookies.Append("uniqueID", Guid.NewGuid().ToString());
-            return View("Index");
-        }
 
 
-        public IActionResult SetuserCookie(String uID)
-        {
-            Response.Cookies.Append("user", uID);
-            Response.Cookies.Append("uniqueID", Guid.NewGuid().ToString());
-            return View("Index");
-        }
     }
 }

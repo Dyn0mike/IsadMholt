@@ -9,16 +9,15 @@
 <table style="width:100%">
     <tr>
         <td>
-            @Html.ActionLink("Bar", "SetuserCookie", "Home",  new { uID = "b" }, new { @class = "btn btn-default"})
-            @Html.ActionLink("Table 1", "SetuserCookie", "Home", new { uID = "1" }, new { @class = "btn btn-default" })
-            @Html.ActionLink("Table 2", "SetuserCookie", "Home", new { uID = "2" }, new { @class = "btn btn-default" })
-            @Html.ActionLink("Table 3", "SetuserCookie", "Home", new { uID = "3" }, new { @class = "btn btn-default" })
-
+            @Html.ActionLink("Bar", "newCustomer", "Customers", new { uID = "9" }, new { @class = "btn btn-default" })
+            @Html.ActionLink("Table 1", "newCustomer", "Customers", new { uID = "1" }, new { @class = "btn btn-default" })
+            @Html.ActionLink("Table 2", "newCustomer", "Customers", new { uID = "2" }, new { @class = "btn btn-default" })
+            @Html.ActionLink("Table 3", "newCustomer", "Customers", new { uID = "3" }, new { @class = "btn btn-default" })
         </td>
         
         <td>
             <p>Are you an admin?</p>
-            @Html.ActionLink("Login as Admin.", "SetAdminCookie", "Home", null, new { @class = "btn btn-default" })
+            @Html.ActionLink("Login as Admin.", "SetAdminCookie", "Customers", null, new { @class = "btn btn-default" })
         </td>
     </tr>
     <tr>
