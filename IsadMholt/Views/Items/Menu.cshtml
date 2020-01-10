@@ -43,7 +43,15 @@
                 @Html.DisplayFor(modelItem => item.Price)
             </td>
             <td>
-                <a asp-action="addBasket" asp-route-id="@item.IdItem">Add to basket.</a>
+                @if (Context.Request.Cookies["user"] != "Admin")
+                {
+                    <a asp-action="addBasket" asp-route-id="@item.IdItem" asp-route-price="@item.Price">Add to basket.</a>
+                }
+                else
+                {
+                    <a asp-area="" asp-controller="Home" asp-action="Index">Login to a customer account to order.</a>
+                }
+
             </td>
         </tr>
 }

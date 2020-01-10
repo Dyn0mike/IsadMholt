@@ -6,7 +6,7 @@ namespace IsadMholt.Models
     public partial class ItemsOrdered
     {
         public int IdOrder { get; set; }
-        public string IdItem { get; set; }
-        public string Quantity { get; set; }
+        public int IdItem { get; set; }
+        public int Quantity { get; set; }
     }
 }

@@ -46,7 +46,8 @@
             <td>
                 <a asp-action="Edit" asp-route-id="@item.IdOrder">Edit</a> |
                 <a asp-action="Details" asp-route-id="@item.IdOrder">Details</a> |
-                <a asp-action="Delete" asp-route-id="@item.IdOrder">Delete</a>
+                <a asp-action="Delete" asp-route-id="@item.IdOrder">Delete</a> | 
+                <a asp-action="ViewOrder" asp-controller="ItemsOrdereds" asp-route-id="@item.IdOrder">View order.</a>
             </td>
         </tr>
 }

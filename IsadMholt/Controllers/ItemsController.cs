@@ -34,8 +34,28 @@ namespace IsadMholt.Controllers
         }
 
         // GET: Items/Details/5
-        public async Task<IActionResult> addBasket(int? id)
+        public async Task<IActionResult> addBasket(int? id, string price)
         {
+            int OrderID = Convert.ToInt32(Request.Cookies["IdOrder"]);
+            
+            //Cheak if adding new item to basket.
+            if (id == 0 || _context.ItemsOrdered.Find(OrderID, id) != null || id == null)
+            {
+                return View(await _context.Items.ToListAsync());
+            }
+            //Pull information on order and customers, to update db with new items.
+            
+            _context.Orders.Find(OrderID).Price = price;
+            ItemsOrdered Newitem = new ItemsOrdered();
+            Newitem.IdItem = Convert.ToInt32(id);
+            Newitem.IdOrder = OrderID;
+            Newitem.Quantity = 1;
+            _context.ItemsOrdered.Add(Newitem);
+
+            if (ModelState.IsValid)
+            {
+                _context.SaveChanges();
+            }
 
             string cookieValue = Request.Cookies["O"];
             
@@ -51,6 +71,7 @@ namespace IsadMholt.Controllers
             }
             Response.Cookies.Append(id.ToString(), cookieValue);
             ViewBag.itemID = id;
+
             if (Request.Cookies["uniqueID"] == null)
             {
                 return RedirectToAction("Login","Home");
@@ -62,6 +83,13 @@ namespace IsadMholt.Controllers
         public IActionResult RemoveItem(int? id)
         {
             Response.Cookies.Delete(id.ToString());
+
+            int OrderID = Convert.ToInt32(Request.Cookies["IdOrder"]);
+            _context.ItemsOrdered.Remove(_context.ItemsOrdered.Find(OrderID, id));
+            if (ModelState.IsValid)
+            {
+                _context.SaveChanges();
+            }
 
             return RedirectToAction("addBasket");
         }

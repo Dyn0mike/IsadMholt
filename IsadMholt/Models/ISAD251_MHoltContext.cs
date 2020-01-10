@@ -59,7 +59,7 @@ namespace IsadMholt.Models
 
             modelBuilder.Entity<ItemsOrdered>(entity =>
             {
-                entity.HasKey(e => e.IdOrder);
+                entity.HasKey(e => new { e.IdOrder, e.IdItem} );
 
                 entity.Property(e => e.IdOrder).ValueGeneratedNever();
 

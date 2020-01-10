@@ -39,8 +39,11 @@
                     {
                         <li><a asp-area="" asp-controller="Home" asp-action="Logout">Logout</a></li>
                     }
+                    @if (Context.Request.Cookies["user"] != "Admin" && Context.Request.Cookies["user"] != null)
+                    {
+                        <li><a asp-area="" asp-controller="Items" asp-action="addBasket" asp-route-id=0>Basket</a></li>
+                    }
 
-                    <li><a asp-area="" asp-controller="Items" asp-action="addBasket">Basket</a></li>
                 </ul>
             </div>
         </div>

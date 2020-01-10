@@ -25,30 +25,31 @@
     </thead>
     <tbody>
 
+
         @foreach (var item in Model)
         {
 
-            productsInBasket.Add(item.IdItem.ToString());
+        productsInBasket.Add(item.IdItem.ToString());
 
-            string cookieValue = Context.Request.Cookies[item.IdItem.ToString()];
-            if (cookieValue != null || ViewBag.itemID == item.IdItem)
-            {
+        string cookieValue = Context.Request.Cookies[item.IdItem.ToString()];
+        if (cookieValue != null || ViewBag.itemID == item.IdItem)
+        {
 
-                <tr>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.Catagory)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.Name)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.Price)
-                    </td>
-                    <td>
-                        <a asp-action="RemoveItem" asp-route-id="@item.IdItem">Remove</a>
-                    </td>
-                </tr>
-            }
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Catagory)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Name)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Price)
+            </td>
+            <td>
+                <a asp-action="RemoveItem" asp-route-id="@item.IdItem">Remove</a>
+            </td>
+        </tr>
+        }
         }
     </tbody>
 </table>

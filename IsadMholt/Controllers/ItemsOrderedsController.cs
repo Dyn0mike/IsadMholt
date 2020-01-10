@@ -24,6 +24,14 @@ namespace IsadMholt.Controllers
             return View(await _context.ItemsOrdered.ToListAsync());
         }
 
+        public async Task<IActionResult> ViewOrder(int? id)
+        {
+            var itemsOrdered = await _context.ItemsOrdered
+                .FirstOrDefaultAsync(m => m.IdOrder == id);
+
+            return View(itemsOrdered);
+        }
+
         // GET: ItemsOrdereds/Details/5
         public async Task<IActionResult> Details(int? id)
         {
@@ -136,7 +144,7 @@ namespace IsadMholt.Controllers
         // POST: ItemsOrdereds/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> DeleteConfirmed(int id)
+        public async Task<IActionResult> DeleteConfirmed(int id, int OrderId)
         {
             var itemsOrdered = await _context.ItemsOrdered.FindAsync(id);
             _context.ItemsOrdered.Remove(itemsOrdered);
